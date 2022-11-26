@@ -7,8 +7,6 @@ $Boxstarter.RebootOk=$true # Allow reboots?
 $Boxstarter.NoPassword=$false # Is this a machine with no login password?
 $Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a reboot
 
-
-
 Disable-UAC
 $ConfirmPreference = "None" #ensure installing powershell modules don't prompt on needed dependencies
 
@@ -45,7 +43,7 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
 
 
 #--- Setting up Windows ---
-executeScript "Add_To_Domain.ps1";
+#executeScript "Add_To_Domain.ps1";
 executeScript "PStoolkit_Start.ps1";
 
 #--- reenabling critial items ---

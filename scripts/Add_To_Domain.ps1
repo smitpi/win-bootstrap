@@ -1,5 +1,6 @@
 
 If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
+try {
     Write-Host -ForegroundColor Red "This machine is not part of a domain. Adding now."
     $user = Read-Host "Userid"
     $pass = Read-Host "Password" -AsSecureString
@@ -7,6 +8,9 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
     
     Rename-Computer -ComputerName $env:COMPUTERNAME -NewName "Dev-$(get-random -Maximum 5000)"
     Start-Sleep 5
-    Add-Computer -DomainName 'internal.lab' -Credential $labcred -Options JoinWithNewName,AccountCreate -Force
-    invoke-reboot
+    Add-Computer -DomainName 'internal.lab' -Credential $labcred -Options JoinWithNewName,AccountCreate -Force -ErrorAction Stop
+        if (Test-PendingReboot) {
+            Invoke-Reboot
+        }
+   } catch {Write-Warning "unable to add to the domain."}
 }
