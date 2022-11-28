@@ -43,7 +43,7 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
 
 #--- Setting up Windows ---
 If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
-    $cred = Get-Credential DomainCreds
+    $cred = Get-Credential lab\ps
     Install-BoxstarterPackage -Package "$($helperUri)/Add_To_Domain.ps1" -Credential $cred
 } else {
     Write-Host 'Already part of a domain.' -ForegroundColor Green
