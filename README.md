@@ -1,6 +1,7 @@
 # win-bootstrap
 
 Boxstarter scripts to setup a new windows machine.
+`. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force`
 
 |Click link to run  |Description  |
 |---------|---------|
