@@ -42,8 +42,13 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
 }
 
 #--- Setting up Windows ---
-If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {executeScript 'Add_To_Domain.ps1'; }
-executeScript 'PStoolkit_Start.ps1';
+If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
+    executeScript 'Add_To_Domain.ps1'
+} else {
+    Write-Host 'Already part of a domain.' -ForegroundColor Green
+}
+
+executeScript 'PStoolkit_Start.ps1'
 
 #--- reenabling critical items ---
 Enable-UAC
