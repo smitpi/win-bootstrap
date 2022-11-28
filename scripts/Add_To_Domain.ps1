@@ -1,9 +1,9 @@
 
 try {
     Write-Host -ForegroundColor Red 'This machine is not part of a domain. Adding now.'
-    $user = Read-Host 'Userid'
-    $pass = Read-Host 'Password' -AsSecureString
-    $labcred = New-Object System.Management.Automation.PSCredential ($user, $pass)
+    # $user = Read-Host 'Userid'
+    # $pass = Read-Host 'Password' -AsSecureString
+    # $labcred = New-Object System.Management.Automation.PSCredential ($user, $pass)
     
     Rename-Computer -ComputerName $env:COMPUTERNAME -NewName "Dev-$(Get-Random -Maximum 5000)"
     Start-Sleep 5
