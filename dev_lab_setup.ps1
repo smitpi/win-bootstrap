@@ -54,6 +54,9 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 
 
 executeScript 'PStoolkit_Start.ps1'
+executeScript 'Execution_Policy.ps1';
+executeScript 'PSGallery.ps1';
+executeScript 'pstoolkit_install.ps1';
 
 #--- reenabling critical items ---
 Enable-UAC
