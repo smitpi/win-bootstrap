@@ -11,7 +11,7 @@ $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a
 
 
 Disable-UAC
-$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
+#$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
 
 # Get the base URI path from the ScriptToCall value
 $bstrappackage = '-bootstrapPackage'
@@ -37,12 +37,15 @@ $chocoCachePath = "$env:TEMP"
 if ([string]::IsNullOrEmpty($chocoCachePath)) {
     $chocoCachePath = "$env:USERPROFILE\AppData\Local\Temp\chocolatey"
 }
-Write-Host "Using chocoCachePath: $chocoCachePath"
+Write-Host "`n`nUsing chocoCachePath: $chocoCachePath" -ForegroundColor Yellow
 
 if (-not (Test-Path -LiteralPath $chocoCachePath)) {
-    Write-Host 'Creating chocoCachePath dir.'
+    Write-Host "`tCreating chocoCachePath directory" -ForegroundColor Yellow
     New-Item -Path $chocoCachePath -ItemType Directory -Force
 }
+Write-Host "VerbosePreference = $VerbosePreference`n`n"
+Write-Host "`tStarting Boxstarter Bootstrap Install" -ForegroundColor Green
+
 
 #--- Setting up Windows ---
 If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
@@ -62,6 +65,7 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
+Invoke-Reboot
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
