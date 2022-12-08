@@ -46,8 +46,9 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
 
 #--- Setting up Windows ---
 If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
-    $cred = Get-Credential -UserName lab\ps -Message 'To Autologon'
-    Install-BoxstarterPackage -Package "$($helperUri)/Add_To_Domain.ps1" -Credential $cred
+    #$cred = Get-Credential -UserName lab\ps -Message 'To Autologon'
+    #Install-BoxstarterPackage -Package "$($helperUri)/Add_To_Domain.ps1" -Credential $cred
+    executeScript 'Add_To_Domain.ps1'
 } else {
     Write-Host 'Already part of a domain.' -ForegroundColor Green
 }
@@ -57,6 +58,8 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 executeScript 'Execution_Policy.ps1';
 executeScript 'PSGallery.ps1';
 executeScript 'pstoolkit_install.ps1';
+executeScript 'RemoveDefaultApps.ps1';
+executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
 Enable-UAC
