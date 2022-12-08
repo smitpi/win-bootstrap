@@ -26,6 +26,7 @@ Write-Host "helper script base URI is $helperUri"
 
 function executeScript {
     Param ([string]$script)
+    $VerbosePreference = 'SilentlyContinue'
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Executing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
     Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
 }
@@ -66,14 +67,13 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
-RefreshEnv
-if (Test-PendingReboot) {
+if (Boxstarter.Bootstrapper\Test-PendingReboot) {
     Invoke-Reboot
 }
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 Enable-UAC
 
-if (Test-PendingReboot) {
+if (Boxstarter.Bootstrapper\Test-PendingReboot) {
     Invoke-Reboot
 }
