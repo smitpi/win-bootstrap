@@ -71,7 +71,7 @@ Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; 
 if (Boxstarter.Bootstrapper\Test-PendingReboot) {
     Invoke-Reboot
 }
-Enable-MicrosoftUpdate
+#Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 Enable-UAC
 
