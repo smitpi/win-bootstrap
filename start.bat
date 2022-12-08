@@ -1,0 +1,2 @@
+rem http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1
+start http://boxstarter.org/package/url?"\\192.168.10.63\ProdModules\win-bootstrap\dev_lab_setup.ps1"

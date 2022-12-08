@@ -11,7 +11,7 @@ $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a
 
 
 Disable-UAC
-#$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
+$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
 
 # Get the base URI path from the ScriptToCall value
 $bstrappackage = '-bootstrapPackage'
@@ -26,7 +26,6 @@ Write-Host "helper script base URI is $helperUri"
 
 function executeScript {
     Param ([string]$script)
-    Write-Host "executing $helperUri/$script ..."
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Executing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
     Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
 }
@@ -67,6 +66,14 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
+RefreshEnv
+if (Test-PendingReboot) {
+    Invoke-Reboot
+}
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 Enable-UAC
-#Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+
+if (Test-PendingReboot) {
+    Invoke-Reboot
+}
