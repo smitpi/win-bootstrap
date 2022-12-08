@@ -3,15 +3,15 @@
 # Common dev settings for desktop app development
 
 # Boxstarter options
-#$Boxstarter.RebootOk = $true # Allow reboots?
-#$Boxstarter.NoPassword = $false # Is this a machine with no login password?
-#$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
+$Boxstarter.RebootOk = $true # Allow reboots?
+$Boxstarter.NoPassword = $false # Is this a machine with no login password?
+$Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
 #. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
 
 
 Disable-UAC
-#$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
+$ConfirmPreference = 'None' #ensure installing PowerShell modules don't prompt on needed dependencies
 
 # Get the base URI path from the ScriptToCall value
 $bstrappackage = '-bootstrapPackage'
@@ -53,7 +53,7 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 }
 
 
-executeScript 'PStoolkit_Start.ps1'
+#executeScript 'PStoolkit_Start.ps1'
 executeScript 'Execution_Policy.ps1';
 executeScript 'PSGallery.ps1';
 executeScript 'pstoolkit_install.ps1';
