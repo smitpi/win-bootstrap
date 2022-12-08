@@ -37,5 +37,4 @@ Import-Module PSToolKit -Force
 Show-PSToolKit -ShowMetaData
 #endregion
 
-Set-PSToolKitSystemSetting -RunAll
 New-PSProfile
