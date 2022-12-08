@@ -27,6 +27,7 @@ Write-Host "helper script base URI is $helperUri"
 function executeScript {
     Param ([string]$script)
     Write-Host "executing $helperUri/$script ..."
+    Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Executing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
     Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
 }
 
@@ -45,7 +46,7 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
 }
 $VerbosePreference = 'SilentlyContinue'
 Write-Host "VerbosePreference = $VerbosePreference`n`n"
-Write-Host "`tStarting Boxstarter Bootstrap Install" -ForegroundColor Green
+Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Script`n" -ForegroundColor Cyan
 
 
 #--- Setting up Windows ---
@@ -67,5 +68,5 @@ executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
 Enable-UAC
-Enable-MicrosoftUpdate
+#Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
