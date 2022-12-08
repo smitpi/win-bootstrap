@@ -1,5 +1,5 @@
 #region Needed Modules
-Write-Host "-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Needed PowerShell Modules`n" -ForegroundColor Cyan
+Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Needed PowerShell Modules`n" -ForegroundColor Cyan
 'ImportExcel', 'PSWriteHTML', 'PSWriteColor', 'PSScriptTools', 'PoshRegistry', 'Microsoft.PowerShell.Archive', 'PWSHModule', 'PSPackageMan' | ForEach-Object {		
 	$module = $_
 	if (-not(Get-Module $module) -and -not(Get-Module $module -ListAvailable)) {
@@ -35,10 +35,10 @@ Remove-Item $PSDownload -Force -Recurse
 
 Import-Module PSToolKit -Force
 Show-PSToolKit -ShowMetaData | Out-String
-Start-Sleep 10
+Start-Sleep 3
 #endregion
-Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Creating]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PowerShell Profile`n" -ForegroundColor Cyan
+Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Creating]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PowerShell Profile`n" -ForegroundColor Cyan
 New-PSProfile
 
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Setting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "System Settings`n" -ForegroundColor Cyan
-Set-PSToolKitSystemSetting -IntranetZone -IntranetZoneIPRange -PSTrustedHosts -SystemDefaults -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
+Set-PSToolKitSystemSetting -IntranetZoneIPRange -PSTrustedHosts -SystemDefaults -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
