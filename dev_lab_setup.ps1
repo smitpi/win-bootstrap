@@ -43,6 +43,7 @@ if (-not (Test-Path -LiteralPath $chocoCachePath)) {
     Write-Host "`tCreating chocoCachePath directory" -ForegroundColor Yellow
     New-Item -Path $chocoCachePath -ItemType Directory -Force
 }
+$VerbosePreference = 'SilentlyContinue'
 Write-Host "VerbosePreference = $VerbosePreference`n`n"
 Write-Host "`tStarting Boxstarter Bootstrap Install" -ForegroundColor Green
 
@@ -65,7 +66,6 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
 #--- reenabling critical items ---
-Invoke-Reboot
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
