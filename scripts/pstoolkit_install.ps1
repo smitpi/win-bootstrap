@@ -34,7 +34,8 @@ Copy-Item -Path $NewModule.FullName -Destination $ModulePath.FullName -Recurse -
 Remove-Item $PSDownload -Force -Recurse
 
 Import-Module PSToolKit -Force
-Show-PSToolKit -ShowMetaData
+Show-PSToolKit -ShowMetaData | Out-String
+Start-Sleep 10
 #endregion
 
 New-PSProfile

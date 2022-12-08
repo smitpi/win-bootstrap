@@ -10,7 +10,7 @@ Write-Host 'Uninstall some applications that come with Windows out of the box' -
 
 function removeApp {
 	Param ([string]$appName)
-	Write-Output "Trying to remove $appName"
+	Write-Host "`t[Removing]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($appName)" -ForegroundColor Cyan
 	try {
 		Get-AppxPackage $appName -AllUsers | Remove-AppxPackage
 	} catch {Write-Warning "Error Uninstalling $($appName): Message:$($Error[0])"}
@@ -183,6 +183,7 @@ $applicationList2 = @(
 	'Microsoft.Advertising.Xaml'
 )
       
+Write-Host "`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Uninstall]: ' -NoNewline -ForegroundColor Yellow; Write-Host 'Windows Default Apps' -ForegroundColor Cyan
 
 foreach ($app in $applicationList2) {
 	removeApp $app
