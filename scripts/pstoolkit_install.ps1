@@ -41,4 +41,4 @@ Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Writ
 New-PSProfile
 
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Setting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "System Settings`n" -ForegroundColor Cyan
-Set-PSToolKitSystemSetting -IntranetZoneIPRange -PSTrustedHosts -SystemDefaults -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
+Set-PSToolKitSystemSetting -IntranetZone -IntranetZoneIPRange -PSTrustedHosts -SystemDefaults -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
