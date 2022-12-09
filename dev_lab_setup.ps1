@@ -73,6 +73,8 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
 #region choco install
+
+$VerbosePreference = 'SilentlyContinue'
 $common = "--cache-location=$($chocoCachePath) --yes --limit-output --no-progress --source=chocolatey"
 
 choco upgrade bandizip $common
