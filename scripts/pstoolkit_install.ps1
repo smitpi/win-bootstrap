@@ -1,6 +1,6 @@
 #region Needed Modules
 Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Needed PowerShell Modules`n" -ForegroundColor Cyan
-'ImportExcel', 'PSWriteHTML', 'PSWriteColor', 'PSScriptTools', 'PoshRegistry', 'Microsoft.PowerShell.Archive', 'PWSHModule', 'PSPackageMan' | ForEach-Object {		
+'ImportExcel', 'PSWriteHTML', 'PSWriteColor', 'PSScriptTools', 'PoshRegistry', 'Microsoft.PowerShell.Archive', 'PWSHModule', 'PSPackageMan' , 'Carbon', 'Pscx' , 'PSReleaseTools', 'PSWindowsUpdate' | ForEach-Object {		
 	$module = $_
 	if (-not(Get-Module $module) -and -not(Get-Module $module -ListAvailable)) {
 		try {
@@ -37,10 +37,17 @@ Import-Module PSToolKit -Force
 Show-PSToolKit -ShowMetaData | Out-String
 Start-Sleep 3
 #endregion
+
 Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Creating]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PowerShell Profile`n" -ForegroundColor Cyan
 New-PSProfile
 
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Setting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "System Settings`n" -ForegroundColor Cyan
 try {
-	Set-PSToolKitSystemSetting -IntranetZone -IntranetZoneIPRange -PSTrustedHosts -SystemDefaults -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
+	Set-PSToolKitSystemSetting -IntranetZone -IntranetZoneIPRange -PSTrustedHosts -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
 } catch {Write-Warning "Error PSToolKitSystemSetting: Message:$($Error[0])"}
+
+Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "VMWare Tools`n" -ForegroundColor Cyan
+Install-VMWareTool
+
+Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "RSAT Tools`n" -ForegroundColor Cyan
+Install-RSAT

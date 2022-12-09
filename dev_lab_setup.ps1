@@ -65,16 +65,19 @@ executeScript 'PSGallery.ps1';
 executeScript 'pstoolkit_install.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
+executeScript 'BaseApps.ps1';
 
 #--- reenabling critical items ---
-Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-if (Boxstarter.Bootstrapper\Test-PendingReboot) {
-    Invoke-Reboot
-}
-#Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula -getUpdatesFromMS
-Enable-UAC
+try {
+    Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
+    if (Boxstarter.Bootstrapper\Test-PendingReboot) {
+        Invoke-Reboot
+    }
+    #Enable-MicrosoftUpdate
+    Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+    Enable-UAC
 
-if (Boxstarter.Bootstrapper\Test-PendingReboot) {
-    Invoke-Reboot
-}
+    if (Boxstarter.Bootstrapper\Test-PendingReboot) {
+        Invoke-Reboot
+    }
+} catch {Write-Warning "Error: Message:$($Error[0])"}
