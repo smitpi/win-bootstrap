@@ -63,9 +63,10 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 executeScript 'Execution_Policy.ps1';
 executeScript 'PSGallery.ps1';
 executeScript 'pstoolkit_install.ps1';
+executeScript 'BaseApps.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'BaseApps.ps1';
+
 
 #--- reenabling critical items ---
 try {
