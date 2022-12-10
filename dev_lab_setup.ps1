@@ -22,17 +22,17 @@ try {
 "@
     Write-Host $message -ForegroundColor Yellow
     Disable-UAC
-    Write-Host "Script to call: $($Boxstarter['ScriptToCall'])" -ForegroundColor Cyan
+    Write-Host "Script to call: $($Boxstarter['ScriptToCall'] | Out-String)" -ForegroundColor Cyan
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
 # Get the base URI path from the ScriptToCall value
 try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
-    if ($helperUri -match 'http') {
+    $strpos = $helperUri.IndexOf($bstrappackage)
+    if ($strpos -like 'http*') {
         Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
-        $strpos = $helperUri.IndexOf($bstrappackage)
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
         $helperUri = $helperUri.TrimStart("'", ' ')
         $helperUri = $helperUri.TrimEnd("'", ' ')
@@ -41,14 +41,13 @@ try {
     } else {
         Write-Host "`n`t`tURI is from the local disk" -ForegroundColor Yellow
         $IsWeb = $false
-        $strpos = $helperUri.IndexOf($bstrappackage)
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
         $helperUri = $helperUri.TrimStart("'", ' ')
         $helperUri = $helperUri.TrimEnd("'", ' ')
         $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('\'))
         $helperUri += '\scripts'
     }
-    Write-Host "helper script base URI is $helperUri"
+    Write-Host "Helper script base URI is $helperUri" -ForegroundColor Yellow
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 function executeScript {
     Param ([string]$script)
