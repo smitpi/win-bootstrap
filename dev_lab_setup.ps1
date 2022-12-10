@@ -30,7 +30,7 @@ try {
     $helperUri = $Boxstarter['ScriptToCall']
     $strpos = $helperUri.IndexOf($bstrappackage)
     Write-Host "Script to call: $($strpos)" -ForegroundColor Cyan
-    if ($strpos -like 'http*') {
+    if ($strpos -like '*http*') {
         Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
@@ -101,22 +101,15 @@ executeScript 'FileExplorerSettings.ps1';
 #$common = "--cache-location=$($chocoCachePath.FullName)"
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Apps Install`n" -ForegroundColor Cyan
 
-$AppsInstall = @('bandizip',
-    'cascadia-code-nerd-font',
-    'cascadiacodepl',
-    'GoogleChrome',
-    'microsoft-edge',
-    'microsoft-windows-terminal',
-    'pwsh')
 
-foreach ($app in $AppsInstall) {
-    try {
-        Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan -NoNewline
-        choco upgrade $app --source chocolatey --accept-license --limit-output -y --ignore-detected-reboot | Out-Null
-        if ($LASTEXITCODE -ne 0) {Write-Host ' Failed' -ForegroundColor Red}
-        if ($LASTEXITCODE -eq 0) {Write-Host ' Completed' -ForegroundColor Green}
-    } catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
-}
+
+choco install bandizip -y 
+choco install cascadia-code-nerd-font -y
+choco install cascadiacodepl -y
+choco install GoogleChrome -y
+choco install microsoft-edge -y
+choco install microsoft-windows-terminal -y
+choco install pwsh -y
 
 
 #endregion choco install
@@ -124,9 +117,9 @@ foreach ($app in $AppsInstall) {
 #--- reenabling critical items ---
 # try {
 #     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-#     Enable-MicrosoftUpdate
-#     Install-WindowsUpdate -acceptEula -getUpdatesFromMS
-#     Enable-UAC
+Enable-UAC
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 
 #     if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
 

@@ -1,9 +1,17 @@
-$common = "--cache-location=$($chocoCachePath) --yes --limit-output --no-progress --source=chocolatey"
+$AppsInstall = @('bandizip',
+	'cascadia-code-nerd-font',
+	'cascadiacodepl',
+	'GoogleChrome',
+	'microsoft-edge',
+	'microsoft-windows-terminal',
+	'pwsh')
 
-choco upgrade bandizip $common
-choco upgrade cascadia-code-nerd-font $common
-choco upgrade cascadiacodepl $common
-choco upgrade GoogleChrome $common
-choco upgrade microsoft-edge $common
-choco upgrade microsoft-windows-terminal $common
-choco upgrade pwsh $common
+foreach ($app in $AppsInstall) {
+	try {
+		Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan -NoNewline
+		choco upgrade $app --source chocolatey --accept-license --limit-output -y --ignore-detected-reboot | Out-Null
+		if ($LASTEXITCODE -ne 0) {Write-Host ' Failed' -ForegroundColor Red}
+		if ($LASTEXITCODE -eq 0) {Write-Host ' Completed' -ForegroundColor Green}
+	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
+}
+
