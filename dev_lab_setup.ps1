@@ -22,7 +22,6 @@ try {
 "@
     Write-Host $message -ForegroundColor Yellow
     Disable-UAC
-    Write-Host "Script to call: $($Boxstarter['ScriptToCall'] | Out-String)" -ForegroundColor Cyan
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
 # Get the base URI path from the ScriptToCall value
@@ -30,6 +29,7 @@ try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
     $strpos = $helperUri.IndexOf($bstrappackage)
+    Write-Host "Script to call: $($strpos)" -ForegroundColor Cyan
     if ($strpos -like 'http*') {
         Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
@@ -112,7 +112,7 @@ $AppsInstall = @('bandizip',
 foreach ($app in $AppsInstall) {
     try {
         Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan -NoNewline
-        choco upgrade $app --source chocolatey --accept-license --limit-output -y | Out-Null
+        choco upgrade $app --source chocolatey --accept-license --limit-output -y --ignore-detected-reboot | Out-Null
         if ($LASTEXITCODE -ne 0) {Write-Host ' Failed' -ForegroundColor Red}
         if ($LASTEXITCODE -eq 0) {Write-Host ' Completed' -ForegroundColor Green}
     } catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
