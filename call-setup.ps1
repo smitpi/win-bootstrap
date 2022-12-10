@@ -2,9 +2,9 @@
 # Author: Pierre
 # Common dev settings for desktop app development
 
-#. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
 
 $VerbosePreference = 'SilentlyContinue'
+$Boxstarter.SuppressLogging = $True
 $cred = Get-Credential -UserName lab\ps -Message 'To Autologon'
-Install-BoxstarterPackage -Package 'https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1' -Credential $cred
-read-host
+Install-BoxstarterPackage -Package 'https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1' -Credential $cred -DisableReboots -Force
+Read-Host
