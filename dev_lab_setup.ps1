@@ -55,7 +55,9 @@ function executeScript {
         if ($IsWeb) {
             $VerbosePreference = 'SilentlyContinue'
             Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
-            Import-Module ((New-Object net.webclient).DownloadString("$helperUri/$script")) -Force
+            $wc = New-Object System.Net.WebClient
+            $wc.DownloadFile("$helperUri/$script", "$env:temp\$script")
+            Import-Module "$env:temp\$script" -Force
         } else {
             $VerbosePreference = 'SilentlyContinue'
             Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
