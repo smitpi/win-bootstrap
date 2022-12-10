@@ -4,6 +4,7 @@
 
 #. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
 
+$VerbosePreference = 'SilentlyContinue'
 $cred = Get-Credential -UserName lab\ps -Message 'To Autologon'
 Install-BoxstarterPackage -Package 'https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1' -Credential $cred
 read-host
