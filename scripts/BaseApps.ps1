@@ -9,7 +9,7 @@ $AppsInstall = @('bandizip',
 foreach ($app in $AppsInstall) {
 	try {
 		Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan -NoNewline
-		choco install $app --source chocolatey --accept-license --limit-output -y | Out-Null
+		choco upgrade $app --source chocolatey --accept-license --limit-output -y --limit-output | Out-Null
 		if ($LASTEXITCODE -ne 0) {Write-Host ' Failed' -ForegroundColor Red}
 		if ($LASTEXITCODE -eq 0) {Write-Host ' Completed' -ForegroundColor Green}
 	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
