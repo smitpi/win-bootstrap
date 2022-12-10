@@ -98,15 +98,15 @@ executeScript 'FileExplorerSettings.ps1';
 #region choco install
 
 # $VerbosePreference = 'SilentlyContinue'
-$common = "--cache-location=$($chocoCachePath.FullName) --yes --limit-output --no-progress --source=chocolatey"
+#$common = "--cache-location=$($chocoCachePath.FullName) --yes --limit-output --no-progress --source=chocolatey"
 
-choco upgrade bandizip $common
-choco upgrade cascadia-code-nerd-font $common
-choco upgrade cascadiacodepl $common
-choco upgrade GoogleChrome $common
-choco upgrade microsoft-edge $common
-choco upgrade microsoft-windows-terminal $common
-choco upgrade pwsh $common
+choco upgrade bandizip --yes --limit-output --no-progress --source=chocolatey
+choco upgrade cascadia-code-nerd-font --yes --limit-output --no-progress --source=chocolatey
+choco upgrade cascadiacodepl --yes --limit-output --no-progress --source=chocolatey
+choco upgrade GoogleChrome --yes --limit-output --no-progress --source=chocolatey
+choco upgrade microsoft-edge --yes --limit-output --no-progress --source=chocolatey
+choco upgrade microsoft-windows-terminal --yes --limit-output --no-progress --source=chocolatey
+choco upgrade pwsh --yes --limit-output --no-progress --source=chocolatey
 #endregion choco install
 
 #--- reenabling critical items ---
