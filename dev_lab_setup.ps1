@@ -19,6 +19,7 @@ try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
     if ($helperUri -like 'http*') {
+        Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
         $strpos = $helperUri.IndexOf($bstrappackage)
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
@@ -27,6 +28,7 @@ try {
         $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('/'))
         $helperUri += '/scripts'
     } else {
+        Write-Host "`n`t`tURI is from the local disk" -ForegroundColor Yellow
         $IsWeb = $false
         $strpos = $helperUri.IndexOf($bstrappackage)
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
