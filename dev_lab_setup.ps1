@@ -29,8 +29,8 @@ try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
     $strpos = $helperUri.IndexOf($bstrappackage)
-    Write-Host "Script to call: $($strpos)" -ForegroundColor Cyan
-    if ($strpos -like '*http*') {
+    Write-Host "Script to call: $($helperUri.Substring($strpos + $bstrappackage.Length))" -ForegroundColor Cyan
+    if ($helperUri.Substring($strpos + $bstrappackage.Length) -like '*http*') {
         Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
@@ -92,6 +92,7 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 executeScript 'Execution_Policy.ps1';
 executeScript 'PSGallery.ps1';
 executeScript 'pstoolkit_install.ps1';
+executeScript 'BaseApps.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
@@ -99,17 +100,17 @@ executeScript 'FileExplorerSettings.ps1';
 
 # $VerbosePreference = 'SilentlyContinue'
 #$common = "--cache-location=$($chocoCachePath.FullName)"
-Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Apps Install`n" -ForegroundColor Cyan
+# Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Apps Install`n" -ForegroundColor Cyan
 
 
 
-choco install bandizip -y 
-choco install cascadia-code-nerd-font -y
-choco install cascadiacodepl -y
-choco install GoogleChrome -y
-choco install microsoft-edge -y
-choco install microsoft-windows-terminal -y
-choco install pwsh -y
+# choco install bandizip -y 
+# choco install cascadia-code-nerd-font -y
+# choco install cascadiacodepl -y
+# choco install GoogleChrome -y
+# choco install microsoft-edge -y
+# choco install microsoft-windows-terminal -y
+# choco install pwsh -y
 
 
 #endregion choco install
