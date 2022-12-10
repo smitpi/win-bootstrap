@@ -18,7 +18,7 @@ try {
 try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
-    if ($helperUri -like 'http*') {
+    if ($helperUri -match 'http') {
         Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
         $strpos = $helperUri.IndexOf($bstrappackage)
