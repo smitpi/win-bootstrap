@@ -98,15 +98,27 @@ executeScript 'FileExplorerSettings.ps1';
 #region choco install
 
 # $VerbosePreference = 'SilentlyContinue'
-#$common = "--cache-location=$($chocoCachePath.FullName) --yes --limit-output --no-progress --source=chocolatey"
+#$common = "--cache-location=$($chocoCachePath.FullName)"
+Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Apps Install`n" -ForegroundColor Cyan
 
-choco upgrade bandizip --yes --limit-output --no-progress --source=chocolatey
-choco upgrade cascadia-code-nerd-font --yes --limit-output --no-progress --source=chocolatey
-choco upgrade cascadiacodepl --yes --limit-output --no-progress --source=chocolatey
-choco upgrade GoogleChrome --yes --limit-output --no-progress --source=chocolatey
-choco upgrade microsoft-edge --yes --limit-output --no-progress --source=chocolatey
-choco upgrade microsoft-windows-terminal --yes --limit-output --no-progress --source=chocolatey
-choco upgrade pwsh --yes --limit-output --no-progress --source=chocolatey
+$AppsInstall = @('bandizip',
+    'cascadia-code-nerd-font',
+    'cascadiacodepl',
+    'GoogleChrome',
+    'microsoft-edge',
+    'microsoft-windows-terminal',
+    'pwsh')
+
+foreach ($app in $AppsInstall) {
+    try {
+        Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan -NoNewline
+        choco upgrade $app --source chocolatey --accept-license --limit-output -y | Out-Null
+        if ($LASTEXITCODE -ne 0) {Write-Host ' Failed' -ForegroundColor Red}
+        if ($LASTEXITCODE -eq 0) {Write-Host ' Completed' -ForegroundColor Green}
+    } catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
+}
+
+
 #endregion choco install
 
 #--- reenabling critical items ---
