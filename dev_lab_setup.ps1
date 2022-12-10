@@ -22,8 +22,8 @@ try {
     $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
     $helperUri = $helperUri.TrimStart("'", ' ')
     $helperUri = $helperUri.TrimEnd("'", ' ')
-    $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('/'))
-    $helperUri += '/scripts'
+    $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('\'))
+    $helperUri += '\scripts'
     Write-Host "helper script base URI is $helperUri"
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 function executeScript {
@@ -31,7 +31,8 @@ function executeScript {
     try {
         $VerbosePreference = 'SilentlyContinue'
         Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
-        Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
+        Invoke-BoxStarter -ScriptToCall "$helperUri\$script" -RebootOk
+        #Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
     } catch {Write-Warning "Error in $($script): Message:$($Error[0])"}
 }
 
@@ -87,16 +88,16 @@ executeScript 'FileExplorerSettings.ps1';
 #endregion choco install
 
 #--- reenabling critical items ---
-try {
-    Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-    Enable-MicrosoftUpdate
-    Install-WindowsUpdate -acceptEula -getUpdatesFromMS
-    Enable-UAC
+# try {
+#     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
+#     Enable-MicrosoftUpdate
+#     Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+#     Enable-UAC
 
-    if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
+#     if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
 
-    $Boxstarter.RebootOk = $false # Allow reboots?
-    $Boxstarter.NoPassword = $false # Is this a machine with no login password?
-    $Boxstarter.AutoLogin = $false # Save my password securely and auto-login after a reboot
+#     $Boxstarter.RebootOk = $false # Allow reboots?
+#     $Boxstarter.NoPassword = $false # Is this a machine with no login password?
+#     $Boxstarter.AutoLogin = $false # Save my password securely and auto-login after a reboot
 
-} catch {Write-Warning "Error: Message:$($Error[0])"}
+# } catch {Write-Warning "Error: Message:$($Error[0])"}
