@@ -89,9 +89,9 @@ choco upgrade pwsh $common
 #--- reenabling critical items ---
 try {
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-    Enable-MicrosoftUpdate
-    Install-WindowsUpdate -acceptEula -getUpdatesFromMS
-    Enable-UAC
+    #Enable-MicrosoftUpdate
+    #Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+    #Enable-UAC
 
     if (Boxstarter.Bootstrapper\Test-PendingReboot) {
         Invoke-Reboot
