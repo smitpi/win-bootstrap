@@ -18,21 +18,37 @@ try {
 try {
     $bstrappackage = '-bootstrapPackage'
     $helperUri = $Boxstarter['ScriptToCall']
-    $strpos = $helperUri.IndexOf($bstrappackage)
-    $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
-    $helperUri = $helperUri.TrimStart("'", ' ')
-    $helperUri = $helperUri.TrimEnd("'", ' ')
-    $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('\'))
-    $helperUri += '\scripts'
+    if ($helperUri -like 'http*') {
+        $IsWeb = $true
+        $strpos = $helperUri.IndexOf($bstrappackage)
+        $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
+        $helperUri = $helperUri.TrimStart("'", ' ')
+        $helperUri = $helperUri.TrimEnd("'", ' ')
+        $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('/'))
+        $helperUri += '/scripts'
+    } else {
+        $IsWeb = $false
+        $strpos = $helperUri.IndexOf($bstrappackage)
+        $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
+        $helperUri = $helperUri.TrimStart("'", ' ')
+        $helperUri = $helperUri.TrimEnd("'", ' ')
+        $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('\'))
+        $helperUri += '\scripts'
+    }
     Write-Host "helper script base URI is $helperUri"
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 function executeScript {
     Param ([string]$script)
     try {
-        $VerbosePreference = 'SilentlyContinue'
-        Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
-        Install-BoxstarterPackage -PackageName "$helperUri\$script"
-        #Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
+        if ($IsWeb) {
+            $VerbosePreference = 'SilentlyContinue'
+            Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
+            Import-Module ((New-Object net.webclient).DownloadString("$helperUri/$script")) -Force
+        } else {
+            $VerbosePreference = 'SilentlyContinue'
+            Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
+            Import-Module (Join-Path -Path $helperUri -ChildPath $script) -Force
+        }
     } catch {Write-Warning "Error in $($script): Message:$($Error[0])"}
 }
 
