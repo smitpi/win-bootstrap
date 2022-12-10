@@ -10,7 +10,17 @@ $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a
 #. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
 
 try {
-    Clear-Host
+    $message = @"
+  _    _ _______ _____   _____ ______           ____              _       _                   
+ | |  | |__   __|  __ \ / ____|___  /   /\     |  _ \            | |     | |                  
+ | |__| |  | |  | |__) | |       / /   /  \    | |_) | ___   ___ | |_ ___| |_ _ __ __ _ _ __  
+ |  __  |  | |  |  ___/| |      / /   / /\ \   |  _ < / _ \ / _ \| __/ __| __| '__/ _` | '_ \ 
+ | |  | |  | |  | |    | |____ / /__ / ____ \  | |_) | (_) | (_) | |_\__ \ |_| | | (_| | |_) |
+ |_|  |_|  |_|  |_|     \_____/_____/_/    \_\ |____/ \___/ \___/ \__|___/\__|_|  \__,_| .__/ 
+                                                                                       | |    
+                                                                                       |_|    
+"@
+    Write-Host $message -ForegroundColor Yellow
     Disable-UAC
     Write-Host "Script to call: $($Boxstarter['ScriptToCall'])" -ForegroundColor Cyan
 } catch {Write-Warning "Error: Message:$($Error[0])"}
