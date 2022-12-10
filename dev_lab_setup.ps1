@@ -31,7 +31,7 @@ function executeScript {
     try {
         $VerbosePreference = 'SilentlyContinue'
         Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host "`t`t[Executing Script]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($helperUri)/$($script)`n" -ForegroundColor Cyan
-        Invoke-BoxStarter -ScriptToCall "$helperUri\$script" -RebootOk
+        Install-BoxstarterPackage -PackageName "$helperUri\$script"
         #Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
     } catch {Write-Warning "Error in $($script): Message:$($Error[0])"}
 }
