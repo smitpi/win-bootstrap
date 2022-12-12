@@ -90,17 +90,19 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 }
 #endregion Windows Domain
 
-if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
-    if (Boxstarter.Bootstrapper\Test-PendingReboot) { Invoke-Reboot }
-    executeScript 'BaseApps.ps1'
-}
-
 if (-not(Test-Path $env:tmp\Bootstrap)) {New-Item $env:tmp\Bootstrap -ItemType directory -Force}
 if (-not(Test-Path $env:tmp\Bootstrap\Executing_policy.tmp)) {executeScript 'Execution_Policy.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
+if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
+    #if (Boxstarter.Bootstrapper\Test-PendingReboot) { Invoke-Reboot }
+    #executeScript 'BaseApps.ps1'
+    https://boxstarter.org/package/nr/bandizip,cascadia-code-nerd-font,cascadiacodepl,GoogleChrome,microsoft-edge,microsoft-windows-terminal,pwsh
+    New-Item -Path $env:tmp\Bootstrap\BaseApps.tmp -ItemType file -Force
+}
+
 
 #--- reenabling critical items ---
 try {
