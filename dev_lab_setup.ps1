@@ -95,44 +95,24 @@ if (-not(Test-Path $env:tmp\Bootstrap\Executing_policy.tmp)) {executeScript 'Exe
 if (-not(Test-Path $env:tmp\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
-    if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName $env:computername) { Invoke-Reboot }
+    if (Boxstarter.Bootstrapper\Test-PendingReboot) { Invoke-Reboot }
     executeScript 'BaseApps.ps1'
 }
 if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
-#if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {{executeScript 'FileExplorerSettings.ps1}}
-
-#region choco install
-
-# $VerbosePreference = 'SilentlyContinue'
-#$common = "--cache-location=$($chocoCachePath.FullName)"
-# Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Apps Install`n" -ForegroundColor Cyan
-
-
-
-# choco install bandizip -y 
-# choco install cascadia-code-nerd-font -y
-# choco install cascadiacodepl -y
-# choco install GoogleChrome -y
-# choco install microsoft-edge -y
-# choco install microsoft-windows-terminal -y
-# choco install pwsh -y
-
-
-#endregion choco install
+if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
 
 #--- reenabling critical items ---
-# try {
-#     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName $env:computername) { Invoke-Reboot }
-#if ((Test-Path $env:tmp\Bootstrap)) {remove-Item $env:tmp\Bootstrap -Force -Recurse}
-Enable-UAC
-Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+try {
+    Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
+    if (Boxstarter.Bootstrapper\Test-PendingReboot) { Invoke-Reboot }
+    Enable-UAC
+    Enable-MicrosoftUpdate
+    Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 
-#     if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
+    #     if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
 
-#     $Boxstarter.RebootOk = $false # Allow reboots?
-#     $Boxstarter.NoPassword = $false # Is this a machine with no login password?
-#     $Boxstarter.AutoLogin = $false # Save my password securely and auto-login after a reboot
+    #     $Boxstarter.RebootOk = $false # Allow reboots?
+    #     $Boxstarter.NoPassword = $false # Is this a machine with no login password?
+    #     $Boxstarter.AutoLogin = $false # Save my password securely and auto-login after a reboot
 
-# } catch {Write-Warning "Error: Message:$($Error[0])"}
+} catch {Write-Warning "Error: Message:$($Error[0])"}
