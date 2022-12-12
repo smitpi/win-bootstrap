@@ -21,6 +21,7 @@ try {
                                                                                        |_|    
 "@
     Write-Host $message -ForegroundColor Yellow
+    Disable-MicrosoftUpdate
     Disable-UAC
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
@@ -103,6 +104,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
 try {
     $VerbosePreference = 'Continue'
+    Install-WindowsUpdate
     Enable-MicrosoftUpdate
     Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Software
     Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Driver
@@ -112,11 +114,8 @@ try {
 try {
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
    
-    if (-not(Test-Path $env:tmp\Bootstrap\Finalreboot.tmp)) { 
-        New-Item -Path $env:tmp\Bootstrap\Finalreboot.tmp -ItemType file -Force | Out-Null
-        Boxstarter.WinConfig\Invoke-Reboot 
-    }
     if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
+    else {Write-Host 'Reboot not required' -ForegroundColor Green}
     Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
