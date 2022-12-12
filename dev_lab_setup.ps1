@@ -82,9 +82,8 @@ try {
 If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
     #$cred = Get-Credential -UserName lab\ps -Message 'To Autologon'
     #Install-BoxstarterPackage -Package "$($helperUri)/Add_To_Domain.ps1" -Credential $cred
+    Write-Host -ForegroundColor Red 'This machine is not part of a domain. Adding now.'
     executeScript 'Add_To_Domain.ps1'
-} else {
-    Write-Host 'Already part of a domain.' -ForegroundColor Green
 }
 #endregion Windows Domain
 
@@ -111,8 +110,8 @@ try {
         New-Item -Path $env:tmp\Bootstrap\Finalreboot.tmp -ItemType file -Force
         Invoke-Reboot 
     }
-    Enable-UAC
     Enable-MicrosoftUpdate
     Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+    Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
