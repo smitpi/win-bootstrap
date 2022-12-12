@@ -101,6 +101,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
     executeScript 'BaseApps.ps1'
 }
 
+Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 
 #--- reenabling critical items ---
 try {
@@ -111,7 +112,6 @@ try {
         Invoke-Reboot 
     }
     Enable-MicrosoftUpdate
-    Install-WindowsUpdate -acceptEula -getUpdatesFromMS
     Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
