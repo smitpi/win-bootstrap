@@ -21,7 +21,6 @@ try {
                                                                                        |_|    
 "@
     Write-Host $message -ForegroundColor Yellow
-    Disable-MicrosoftUpdate
     Disable-UAC
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
