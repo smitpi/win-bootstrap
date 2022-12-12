@@ -95,13 +95,11 @@ if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'ps
 if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
 
-# if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
-#     if (-not(Test-Path $env:tmp\Bootstrap\BaseApps_reboot.tmp)) { 
-#         New-Item -Path $env:tmp\Bootstrap\BaseApps_reboot.tmp -ItemType file -Force | Out-Null
-#         Invoke-Reboot 
-#     }
-#     executeScript 'BaseApps.ps1'
-# }
+if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
+    if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
+    executeScript 'BaseApps.ps1'
+}
+
 # Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
 # try {
 #     $VerbosePreference = 'Continue'
