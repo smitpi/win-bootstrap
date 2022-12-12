@@ -104,7 +104,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
 try {
     $VerbosePreference = 'Continue'
-    Install-WindowsUpdate
+    Install-WindowsUpdate -getUpdatesFromMS -acceptEula -SuppressReboots
     Enable-MicrosoftUpdate
     Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Software
     Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Driver
