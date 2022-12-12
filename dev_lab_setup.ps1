@@ -101,7 +101,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
     executeScript 'BaseApps.ps1'
 }
 try {
-    Boxstarter.WinConfig\Enable-MicrosoftUpdate
+    # Boxstarter.WinConfig\Enable-MicrosoftUpdate
     Install-MSUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
