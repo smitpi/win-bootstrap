@@ -57,3 +57,5 @@ Install-VMWareTool
 
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "RSAT Tools`n" -ForegroundColor Cyan
 Install-RSAT
+
+New-Item -Path $env:tmp\Bootstrap\pstoolkit_install.tmp -ItemType file -Force

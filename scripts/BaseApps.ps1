@@ -16,3 +16,4 @@ foreach ($app in $AppsInstall) {
 	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
 }
 
+New-Item -Path $env:tmp\Bootstrap\BaseApps.tmp -ItemType file -Force

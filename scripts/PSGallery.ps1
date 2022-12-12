@@ -35,3 +35,5 @@
 		}
 	} | Wait-Job | Receive-Job		
 	#endregion
+
+		New-Item -Path $env:tmp\Bootstrap\PSGallery.tmp -ItemType file -force

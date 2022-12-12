@@ -188,3 +188,5 @@ Write-Host "`n-----------------------------------" -ForegroundColor DarkCyan; Wr
 foreach ($app in $applicationList2) {
 	removeApp $app
 }
+
+New-Item -Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp -ItemType file -Force

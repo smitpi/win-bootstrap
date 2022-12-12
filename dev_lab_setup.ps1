@@ -90,15 +90,16 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 }
 #endregion Windows Domain
 
-
-executeScript 'Execution_Policy.ps1';
-executeScript 'PSGallery.ps1';
-executeScript 'pstoolkit_install.ps1';
-if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName $env:computername) { Invoke-Reboot }
-executeScript 'BaseApps.ps1';
-
-executeScript 'RemoveDefaultApps.ps1';
-executeScript 'FileExplorerSettings.ps1';
+if (-not(Test-Path $env:tmp\Bootstrap)) {New-Item $env:tmp\Bootstrap -ItemType directory -Force}
+if (-not(Test-Path $env:tmp\Bootstrap\Executing_policy.tmp)) {executeScript 'Execution_Policy.ps1'}
+if (-not(Test-Path $env:tmp\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.ps1'}
+if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
+if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
+    if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName $env:computername) { Invoke-Reboot }
+    executeScript 'BaseApps.ps1'
+}
+if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
+#if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {{executeScript 'FileExplorerSettings.ps1}}
 
 #region choco install
 
@@ -122,6 +123,7 @@ executeScript 'FileExplorerSettings.ps1';
 #--- reenabling critical items ---
 # try {
 #     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
+if ((Test-Path $env:tmp\Bootstrap)) {remove-Item $env:tmp\Bootstrap -Force -Recurse}
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula -getUpdatesFromMS
