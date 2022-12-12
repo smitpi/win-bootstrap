@@ -102,7 +102,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
 }
 try {
     Boxstarter.WinConfig\Enable-MicrosoftUpdate
-    Boxstarter.WinConfig\Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+    Boxstarter.WinConfig\Install-WindowsUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
 #--- reenabling critical items ---
