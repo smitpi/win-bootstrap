@@ -13,5 +13,6 @@ foreach ($app in $AppsInstall) {
 		choco upgrade $app --source chocolatey --accept-license --limit-output --yes
 	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
 }
-
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -getUpdatesFromMS -acceptEula -SuppressReboots
 New-Item -Path $env:tmp\Bootstrap\BaseApps.tmp -ItemType file -Force | Out-Null
