@@ -100,9 +100,10 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
     }
     executeScript 'BaseApps.ps1'
 }
-
-Boxstarter.WinConfig\Enable-MicrosoftUpdate
-Boxstarter.WinConfig\Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+try {
+    Boxstarter.WinConfig\Enable-MicrosoftUpdate
+    Boxstarter.WinConfig\Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+} catch {Write-Warning "Error: Message:$($Error[0])"}
 
 #--- reenabling critical items ---
 try {
