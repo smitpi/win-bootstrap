@@ -103,7 +103,8 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
 try {
     # Boxstarter.WinConfig\Enable-MicrosoftUpdate
     $VerbosePreference = 'Continue'
-    Install-MSUpdate
+    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Software
+    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot -RecurseCycle 4 -UpdateType Driver
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
 #--- reenabling critical items ---
@@ -114,7 +115,7 @@ try {
         New-Item -Path $env:tmp\Bootstrap\Finalreboot.tmp -ItemType file -Force | Out-Null
         Boxstarter.WinConfig\Invoke-Reboot 
     }
-    if (Test-PendingReboot) {Boxstarter.WinConfig\Invoke-Reboot}
+    if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Boxstarter.WinConfig\Invoke-Reboot}
     Boxstarter.WinConfig\Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
