@@ -10,4 +10,4 @@
 	} else {Write-Host '[Setting]: ' -NoNewline -ForegroundColor Yellow; Write-Host 'Powershell Script Execution:' -ForegroundColor Cyan -NoNewline; Write-Host ' Already Set' -ForegroundColor Red}
 	#endregion
 
-	New-Item -Path $env:tmp\Bootstrap\Executing_policy.tmp -ItemType file -force
+	New-Item -Path $env:tmp\Bootstrap\Executing_policy.tmp -ItemType file -force | Out-Null

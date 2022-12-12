@@ -133,4 +133,4 @@ try {
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name SnapAssist -Value 1
 
 
-New-Item -Path $env:tmp\Bootstrap\FileExplorerSettings.tmp -ItemType file -Force
+New-Item -Path $env:tmp\Bootstrap\FileExplorerSettings.tmp -ItemType file -Force | Out-Null
