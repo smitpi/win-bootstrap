@@ -123,7 +123,8 @@ if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'Re
 #--- reenabling critical items ---
 # try {
 #     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-if ((Test-Path $env:tmp\Bootstrap)) {remove-Item $env:tmp\Bootstrap -Force -Recurse}
+if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName $env:computername) { Invoke-Reboot }
+#if ((Test-Path $env:tmp\Bootstrap)) {remove-Item $env:tmp\Bootstrap -Force -Recurse}
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula -getUpdatesFromMS
