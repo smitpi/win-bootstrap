@@ -6,3 +6,4 @@ Boxstarter scripts to setup a new windows machine.
 |Click link to run  |Description  |
 |---------|---------|
 |<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1'>Full Desktop App</a>     | Windows Desktop App Development |
+|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/win-bootstrap/master/scripts/BaseApps.ps1'>Base Apps</a>     | Windows Desktop |
