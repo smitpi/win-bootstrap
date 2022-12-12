@@ -102,22 +102,19 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
         Invoke-Reboot 
     }
     executeScript 'BaseApps.ps1'
-    #Start-Process 'https://boxstarter.org/package/nr/bandizip,cascadia-code-nerd-font,cascadiacodepl,GoogleChrome,microsoft-edge,microsoft-windows-terminal,pwsh'
 }
 
 
 #--- reenabling critical items ---
 try {
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
-    if (Boxstarter.Bootstrapper\Test-PendingReboot) { Invoke-Reboot }
+   
+    if (-not(Test-Path $env:tmp\Bootstrap\Finalreboot.tmp)) { 
+        New-Item -Path $env:tmp\Bootstrap\Finalreboot.tmp -ItemType file -Force
+        Invoke-Reboot 
+    }
     Enable-UAC
     Enable-MicrosoftUpdate
     Install-WindowsUpdate -acceptEula -getUpdatesFromMS
-
-    #     if (Boxstarter.Bootstrapper\Test-PendingReboot -ComputerName localhost) { Invoke-Reboot }
-
-    #     $Boxstarter.RebootOk = $false # Allow reboots?
-    #     $Boxstarter.NoPassword = $false # Is this a machine with no login password?
-    #     $Boxstarter.AutoLogin = $false # Save my password securely and auto-login after a reboot
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
