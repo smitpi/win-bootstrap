@@ -31,7 +31,6 @@ try {
     $strpos = $helperUri.IndexOf($bstrappackage)
     Write-Host "Script to call: $($helperUri.Substring($strpos + $bstrappackage.Length))" -ForegroundColor Cyan
     if ($helperUri.Substring($strpos + $bstrappackage.Length) -like '*http*') {
-        Write-Host "`n`t`tURI is from the web" -ForegroundColor Yellow
         $IsWeb = $true
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
         $helperUri = $helperUri.TrimStart("'", ' ')
@@ -39,7 +38,6 @@ try {
         $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('/'))
         $helperUri += '/scripts'
     } else {
-        Write-Host "`n`t`tURI is from the local disk" -ForegroundColor Yellow
         $IsWeb = $false
         $helperUri = $helperUri.Substring($strpos + $bstrappackage.Length)
         $helperUri = $helperUri.TrimStart("'", ' ')
@@ -47,7 +45,7 @@ try {
         $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('\'))
         $helperUri += '\scripts'
     }
-    Write-Host "Helper script base URI is $helperUri" -ForegroundColor Yellow
+    Write-Host "Helper script base URI is $helperUri" -ForegroundColor Cyan
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 function executeScript {
     Param ([string]$script)
@@ -72,7 +70,7 @@ try {
     if (-not(Test-Path $ChocoTemp)) {$chocoCachePath = New-Item -ItemType Directory -Path $ChocoTemp -Force}
     else {$chocoCachePath = Get-Item $ChocoTemp}
 
-    Write-Host "`n`nUsing chocoCachePath: $($chocoCachePath.FullName)" -ForegroundColor Yellow
+    Write-Host "Using chocoCachePath: $($chocoCachePath.FullName)" -ForegroundColor Cyan
 
     $VerbosePreference = 'SilentlyContinue'
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Starting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Script`n" -ForegroundColor Cyan
