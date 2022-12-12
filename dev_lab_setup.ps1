@@ -101,8 +101,8 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
     executeScript 'BaseApps.ps1'
 }
 
-Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula -getUpdatesFromMS
+Boxstarter.WinConfig\Enable-MicrosoftUpdate
+Boxstarter.WinConfig\Install-WindowsUpdate -acceptEula -getUpdatesFromMS
 
 #--- reenabling critical items ---
 try {
@@ -110,8 +110,8 @@ try {
    
     if (-not(Test-Path $env:tmp\Bootstrap\Finalreboot.tmp)) { 
         New-Item -Path $env:tmp\Bootstrap\Finalreboot.tmp -ItemType file -Force | Out-Null
-        Invoke-Reboot 
+        Boxstarter.WinConfig\Invoke-Reboot 
     }
-    Enable-UAC
+    Boxstarter.WinConfig\Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
