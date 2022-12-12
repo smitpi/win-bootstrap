@@ -102,6 +102,7 @@ if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
 }
 try {
     # Boxstarter.WinConfig\Enable-MicrosoftUpdate
+    $VerbosePreference = 'Continue'
     Install-MSUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
