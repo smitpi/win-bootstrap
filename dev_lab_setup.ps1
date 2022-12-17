@@ -112,8 +112,9 @@ if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\win_updates.tmp)) {executeScript
 try {
     Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Reenabling]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Bootstrap Critical Items`n" -ForegroundColor Cyan
    
+    Write-Host '[Checking] ' -NoNewline -ForegroundColor Yellow; Write-Host 'Pending Reboot: ' -ForegroundColor Cyan -NoNewline
     if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
-    else {Write-Host 'Reboot not required' -ForegroundColor Green}
+    else {Write-Host 'Not Required' -ForegroundColor Green}
     Enable-UAC
 
 } catch {Write-Warning "Error: Message:$($Error[0])"}
