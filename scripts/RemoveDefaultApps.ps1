@@ -189,4 +189,4 @@ foreach ($app in $applicationList2) {
 	removeApp $app
 }
 
-New-Item -Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp -ItemType file -Force | Out-Null
+New-Item -Path C:\Temp\Chocolatey\Bootstrap\RemoveDefaultApps.tmp -ItemType file -Force | Out-Null

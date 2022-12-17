@@ -36,4 +36,4 @@
 	} | Wait-Job | Receive-Job		
 	#endregion
 
-		New-Item -Path $env:tmp\Bootstrap\PSGallery.tmp -ItemType file -force | Out-Null
+		New-Item -Path C:\Temp\Chocolatey\Bootstrap\PSGallery.tmp -ItemType file -force | Out-Null

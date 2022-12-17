@@ -7,6 +7,9 @@ $AppsInstall = @('bandizip',
 	'pwsh'
 )
 
+if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
+else {Write-Host 'Reboot not required' -ForegroundColor Green}
+
 foreach ($app in $AppsInstall) {
 	try {
 		Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan
@@ -15,4 +18,4 @@ foreach ($app in $AppsInstall) {
 		choco upgrade $app --source chocolatey --accept-license --limit-output --yes
 	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
 }
-New-Item -Path $env:tmp\Bootstrap\BaseApps.tmp -ItemType file -Force | Out-Null
+New-Item -Path C:\Temp\Chocolatey\Bootstrap\BaseApps.tmp -ItemType file -Force | Out-Null

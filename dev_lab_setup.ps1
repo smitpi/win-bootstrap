@@ -66,7 +66,7 @@ function executeScript {
 
 #region choco cache path
 try {
-    $ChocoTemp = 'c:\temp\chocolatey'
+    $ChocoTemp = 'C:\Temp\Chocolatey'
     if (-not(Test-Path $ChocoTemp)) {$chocoCachePath = New-Item -ItemType Directory -Path $ChocoTemp -Force}
     else {$chocoCachePath = Get-Item $ChocoTemp}
 
@@ -87,18 +87,15 @@ If (!(Get-CimInstance -Class Win32_ComputerSystem).PartOfDomain) {
 }
 #endregion Windows Domain
 
-if (-not(Test-Path $env:tmp\Bootstrap)) {New-Item $env:tmp\Bootstrap -ItemType directory -Force | Out-Null}
-if (-not(Test-Path $env:tmp\Bootstrap\Executing_policy.tmp)) {executeScript 'Execution_Policy.ps1'}
-if (-not(Test-Path $env:tmp\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.ps1'}
-if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
-if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
-if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
-if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
-    if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
-    else {Write-Host 'Reboot not required' -ForegroundColor Green}
-    executeScript 'BaseApps.ps1'
-}
-if (-not(Test-Path $env:tmp\Bootstrap\win_updates.tmp)) {executeScript 'win_updates.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap)) {New-Item C:\Temp\Chocolatey\Bootstrap -ItemType directory -Force | Out-Null}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\Executing_policy.tmp)) {executeScript 'Execution_Policy.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\modules_install.tmp)) {executeScript 'Modules_Install.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\BaseApps.tmp)) {executeScript 'BaseApps.ps1'}
+if (-not(Test-Path C:\Temp\Chocolatey\Bootstrap\win_updates.tmp)) {executeScript 'win_updates.ps1'}
 
 
 
