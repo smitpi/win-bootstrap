@@ -13,11 +13,11 @@ function removeApp {
 	Write-Host "`t[Removing]: " -NoNewline -ForegroundColor Yellow; Write-Host "$($appName)" -ForegroundColor Cyan
 	try {
 		Get-AppxPackage $appName -AllUsers | Remove-AppxPackage
-	} catch {Write-Warning "Error Uninstalling $($appName): Message:$($Error[0])"}
+	} catch {Write-Warning "Error Uninstalling $($appName)"}
 
 	try {
 		Get-AppxProvisionedPackage -Online | Where-Object DisplayName -Like $appName | Remove-AppxProvisionedPackage -Online
-	} catch {Write-Warning "Error Uninstalling $($appName): Message:$($Error[0])"}
+	} catch {Write-Warning "Error Uninstalling $($appName)"}
 
 }
 
