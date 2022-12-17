@@ -7,8 +7,9 @@ $AppsInstall = @('bandizip',
 	'pwsh'
 )
 
+Write-Host '[Checking] ' -NoNewline -ForegroundColor Yellow; Write-Host 'Pending Reboot: ' -ForegroundColor Cyan -NoNewline
 if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
-else {Write-Host 'Reboot not required' -ForegroundColor Green}
+else {Write-Host 'Not Required' -ForegroundColor Green}
 
 foreach ($app in $AppsInstall) {
 	try {

@@ -1,8 +1,12 @@
 
+Write-Host '[Checking] ' -NoNewline -ForegroundColor Yellow; Write-Host 'Pending Reboot: ' -ForegroundColor Cyan -NoNewline
+if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
+else {Write-Host 'Not Required' -ForegroundColor Green}
+
 try {
 	Import-Module PSToolKit -Force
 	Show-PSToolKit -ShowMetaData | Out-String
-	Install-MSUpdates
+	Install-MSUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 try {
 	Install-WindowsUpdate -getUpdatesFromMS -acceptEula -SuppressReboots
