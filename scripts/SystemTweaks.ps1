@@ -9,9 +9,6 @@ Function Get-SpecialPaths {
 
 	$SpecialFolders
 }
-
-
-
 # Add a path for windows defender to bypass
 function Add-DefenderBypassPath {
 	[CmdletBinding()]
