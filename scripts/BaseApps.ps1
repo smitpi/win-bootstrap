@@ -10,6 +10,8 @@ $AppsInstall = @('bandizip',
 foreach ($app in $AppsInstall) {
 	try {
 		Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "$($app)" -ForegroundColor Cyan
+		$VerbosePreference = 'SilentlyContinue'
+		refreshenv
 		choco upgrade $app --source chocolatey --accept-license --limit-output --yes
 	} catch {Write-Warning "Error installing $($app): Message:$($Error[0])"}
 }
