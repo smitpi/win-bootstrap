@@ -1,7 +1,7 @@
 
 try {
 	Enable-MicrosoftUpdate
-	Install-WindowsUpdate -getUpdatesFromMS -acceptEula -SuppressReboots
+	Install-WindowsUpdate
 	Install-MSUpdates
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
