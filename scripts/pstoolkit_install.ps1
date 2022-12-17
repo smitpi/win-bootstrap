@@ -1,6 +1,6 @@
 
 #region PStoolkit
-Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PSToolKit Module`n" -ForegroundColor Cyan
+Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PSToolKit Module`n" -ForegroundColor Cyan
 try {
 	$ModulePathCheck = 'C:\Program Files\WindowsPowerShell\Modules\PSToolKit' 		
 	if (-not(Test-Path $ModulePathCheck)) {$ModulePath = New-Item $ModulePathCheck -ItemType Directory -Force}
@@ -22,16 +22,17 @@ try {
 		$NewModule = Get-ChildItem -Directory "$($PSDownload.FullName)\PSToolKit-master\Output"
 		Copy-Item -Path $NewModule.FullName -Destination $ModulePath.FullName -Recurse -Force
 		Remove-Item $PSDownload -Force -Recurse
-	} else {Write-Host 'Already installed' -ForegroundColor red}
+	} else {Write-Host "`t[Installing]: " -NoNewline -ForegroundColor Yellow; Write-Host 'PSToolKit:' -ForegroundColor Cyan -NoNewline; Write-Host ' Already Installed' -ForegroundColor Red}
 	Import-Module PSToolKit -Force
 	Show-PSToolKit -ShowMetaData | Out-String
-	Start-Sleep 3
 } catch {Write-Warning "Error installing PSToolKit: Message:$($Error[0])"}
 #endregion
 
 Write-Host '-----------------------------------' -ForegroundColor DarkCyan; Write-Host '[Creating]: ' -NoNewline -ForegroundColor Yellow; Write-Host "PowerShell Profile`n" -ForegroundColor Cyan
-New-PSProfile
-
+if (Test-Path $profile) {Write-Host "`t[Creating]: " -NoNewline -ForegroundColor Yellow; Write-Host 'PowerShell Profile:' -ForegroundColor Cyan -NoNewline; Write-Host ' Already Exists' -ForegroundColor Red}
+else {
+	New-PSProfile
+}
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Setting]: ' -NoNewline -ForegroundColor Yellow; Write-Host "System Settings`n" -ForegroundColor Cyan
 try {
 	Set-PSToolKitSystemSetting -IntranetZone -IntranetZoneIPRange -PSTrustedHosts -SetPhotoViewer -DisableIPV6 -DisableInternetExplorerESC -DisableServerManager -EnableRDP
