@@ -7,7 +7,7 @@ $Boxstarter.RebootOk = $true # Allow reboots?
 $Boxstarter.NoPassword = $false # Is this a machine with no login password?
 $Boxstarter.AutoLogin = $true # Save my password securely and auto-login after a reboot
 
-#. { Invoke-WebRequest -useb https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
+#. { Invoke-WebRequest https://boxstarter.org/bootstrapper.ps1 } | Invoke-Expression; Get-Boxstarter -Force
 
 try {
     $message = @"
@@ -93,11 +93,14 @@ if (-not(Test-Path $env:tmp\Bootstrap\PSGallery.tmp)) {executeScript 'PSGallery.
 if (-not(Test-Path $env:tmp\Bootstrap\pstoolkit_install.tmp)) {executeScript 'pstoolkit_install.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\RemoveDefaultApps.tmp)) {executeScript 'RemoveDefaultApps.ps1'}
 if (-not(Test-Path $env:tmp\Bootstrap\FileExplorerSettings.tmp)) {executeScript 'FileExplorerSettings.ps1'}
-
 if (-not(Test-Path $env:tmp\Bootstrap\BaseApps.tmp)) {
     if (Test-PendingReboot -ComputerName $env:COMPUTERNAME) {Invoke-Reboot}
+    else {Write-Host 'Reboot not required' -ForegroundColor Green}
     executeScript 'BaseApps.ps1'
 }
+if (-not(Test-Path $env:tmp\Bootstrap\win_updates.tmp)) {executeScript 'win_updates.ps1'}
+
+
 
 # Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
 # try {

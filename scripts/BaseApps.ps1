@@ -2,9 +2,9 @@ $AppsInstall = @('bandizip',
 	'cascadia-code-nerd-font',
 	'cascadiacodepl',
 	'GoogleChrome'
-	#'microsoft-edge',
-	#'microsoft-windows-terminal',
-	#'pwsh'
+	'microsoft-edge',
+	'microsoft-windows-terminal',
+	'pwsh'
 )
 
 foreach ($app in $AppsInstall) {
