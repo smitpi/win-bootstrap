@@ -44,8 +44,8 @@ Install-VMWareTool
 Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "RSAT Tools`n" -ForegroundColor Cyan
 Install-RSAT
 
-Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
-Install-MSUpdate
+#Write-Host "`n`n-----------------------------------" -ForegroundColor DarkCyan; Write-Host '[Installing]: ' -NoNewline -ForegroundColor Yellow; Write-Host "Windows Updates`n" -ForegroundColor Cyan
+#Install-MSUpdate
 
 New-Item -Path C:\Temp\Chocolatey\Bootstrap\pstoolkit_install.tmp -ItemType file -Force | Out-Null
 

@@ -5,11 +5,11 @@ else {Write-Host 'Not Required' -ForegroundColor Green}
 
 try {
 	Import-Module PSToolKit -Force
-	Show-PSToolKit -ShowMetaData | Out-String
+	#Show-PSToolKit -ShowMetaData | Out-String
 	Install-MSUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 try {
-	Install-WindowsUpdate -getUpdatesFromMS -acceptEula -SuppressReboots
+	Install-WindowsUpdate -acceptEula -SuppressReboots
 	Enable-MicrosoftUpdate
 } catch {Write-Warning "Error: Message:$($Error[0])"}
 
