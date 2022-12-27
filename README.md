@@ -13,4 +13,7 @@ Get-Boxstarter -Force
 
 |Click link to run  |Description  |
 |---------|---------|
-|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/PSToolKit/master/PSToolKit/Control_Scripts/Initial-Setup.ps1'> System Setup</a>     | Use PSToolKit to Install a new System. You will need a valid github userid and token to continue |
+|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/PSToolKit/master/PSToolKit/Control_Scripts/Initial-Setup.ps1'> System Setup</a>     | Use [PSToolKit](https://github.com/smitpi/PSToolKit) to Install a new System.|
+
+> **Warning**
+> You will need a valid **github userid** and **token** to continue
