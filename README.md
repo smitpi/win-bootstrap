@@ -13,5 +13,4 @@ Get-Boxstarter -Force
 
 |Click link to run  |Description  |
 |---------|---------|
-|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/win-bootstrap/master/dev_lab_setup.ps1'>Full Desktop App</a>     | Windows Desktop App Development |
-|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/PSToolKit/master/PSToolKit/Control_Scripts/Initial-Setup.ps1'> PSToolkit Setup</a>     | Use the PSToolKit Setup |
+|<a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/smitpi/PSToolKit/master/PSToolKit/Control_Scripts/Initial-Setup.ps1'> System Setup</a>     | Use PSToolKit to Install a new System. You will need a valid github userid and token to continue |
